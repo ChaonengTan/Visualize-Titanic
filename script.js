@@ -26,12 +26,39 @@ passengers.forEach(p => {
 // Let's loop over each passenger and set some styles 
 passengers.forEach((p, i) => {
   const d = data[i]
-  p.style.width = `${squaresSize}px`
-  p.style.height = `${squaresSize}px`
+  // size according to age
+  var height = squaresSize
+  var width = squaresSize
+  if (d.fields.age) {
+    switch (Math.floor(d.fields.age/20)) {
+      case(0) :
+        height = height/2
+        width = width/2
+      case(1) :
+        height = height/2
+      case(2) :
+        width = width/2
+    }
+  }
+  // first letter of name
+  if (d.fields.name) {
+    const text = document.createElement('p')
+    p.appendChild(text)
+    const name = document.createTextNode(`${d.fields.name[0]}`)
+    text.appendChild(name)
+    text.style.position = 'relative'
+  }
+  p.style.width = `${width}px`
+  p.style.height = `${height}px`
+  // BGColor according to embarked
   p.style.backgroundColor = d.fields.embarked === 'S' ? 'red' : data[i].fields.embarked === 'C' ? 'green' : 'blue'
+  // Opacity according to surviced
   p.style.opacity = d.fields.survived === 'No' ? '.5' : '1'
+  // BorderRadius according to survived
   p.style.borderRadius = d.fields.sex === 'male' ? '0' : '50%'
-  p.style.border = d.fields.pclass ? `${border}px solid ${data[i].fields.pclass === 1 ? 'yellow' : data[i].fields.pclass === 2 ? 'gray' : 'brown'}` : ''
+  // BorderColor according to pclass
+  p.style.border = d.fields.pclass && `${border}px solid ${data[i].fields.pclass === 1 ? 'yellow' : data[i].fields.pclass === 2 ? 'gray' : 'brown'}`
+  p.style.content = d.fields.name[0]
 })
 
 // Challenges - 
