@@ -57,16 +57,19 @@ passengers.forEach((p, i) => {
   }
   p.style.width = `${width}px`
   p.style.height = `${height}px`
+  p.style.margin = 'auto'
 })
 // first letter of name
 passengers.forEach((p, i) => {
   const d = data[i]
   if (d.fields.name) {
-    const text = document.createElement('p')
+    const text = document.createElement('div')
     p.appendChild(text)
     const name = document.createTextNode(`${d.fields.name[0]}`)
     text.appendChild(name)
-    text.style.position = 'relative'
+    const style = text.style
+    style.display = 'flex'
+    style.justifyContent = 'center'
   }
 })
 // Challenges - 
